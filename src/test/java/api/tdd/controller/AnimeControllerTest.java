@@ -6,6 +6,7 @@ import api.tdd.services.AnimeService;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,11 +19,15 @@ import static org.mockito.Mockito.*;
 @WebMvcTest
 public class AnimeControllerTest {
 
+    //No teste de Controller eu só tenho que testar o controller, por isso uso o mock nos outros(repositorio e service)
     @Autowired
     private AnimeController animeController;
 
     @MockBean //ele cria uma implementacao falsa, porque nao pode ser o real para não interferir no teste.
     private AnimeService animeService;
+
+    @MockBean
+    private ModelMapper modelMapper;
 
     @BeforeEach
     public void setup(){
@@ -54,4 +59,6 @@ public class AnimeControllerTest {
 
         verify(this.animeService, never()).findAnime(-1L);
     }
+
+
 }
