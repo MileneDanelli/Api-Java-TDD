@@ -19,15 +19,9 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    public Anime findAnime(Long id) {
-        if(id > 100) {
-            return null;
-        }
-
-        return new Anime(
-                id,
-                "Mirai Nikki",
-                "Anime de Horror"
+    public Anime BuscarAnimePorId(Long id) {
+        return animeRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("Produto não Existe. id: " + id)
         );
     }
 
@@ -50,16 +44,16 @@ public class AnimeService {
     }
 
     @Transactional
-    public Anime EditarAnime(Long id, Anime tipoProduto) {
+    public Anime EditarAnime(Long id, Anime anime1) {
         Anime anime = animeRepository.findById(id)
                 .orElseThrow(
                         () -> new IllegalStateException("Este Anime não Existe. id: " + id)
                 );
-        if(tipoProduto.getNome() != null && !Objects.equals(anime.getNome(), tipoProduto.getNome())){
-            anime.setNome(tipoProduto.getNome());
+        if(anime1.getNome() != null && !Objects.equals(anime.getNome(), anime1.getNome())){
+            anime.setNome(anime1.getNome());
         }
-        if (tipoProduto.getDescricao() != null && !Objects.equals(anime.getDescricao(), tipoProduto.getDescricao())){
-            anime.setDescricao(tipoProduto.getDescricao());
+        if (anime1.getDescricao() != null && !Objects.equals(anime.getDescricao(), anime1.getDescricao())){
+            anime.setDescricao(anime1.getDescricao());
         }
         return anime;
     }

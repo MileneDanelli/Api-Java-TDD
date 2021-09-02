@@ -23,22 +23,6 @@ public class AnimeController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Anime> findAnime(@PathVariable Long id) {
-
-        if(id < 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        Anime anime = this.animeService.findAnime(id);
-
-        if(anime == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(anime);
-    }
-
     @GetMapping
     public List<ListaAnimeDTO> visualizar(){
         return animeService.VisualizarAnime()
@@ -63,6 +47,12 @@ public class AnimeController {
     @ResponseStatus(HttpStatus.OK)
     public String deletar(@PathVariable("id") Long id){
         return animeService.DeletarAnime(id);
+    }
+
+    @GetMapping(path = "{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Anime buscaAnimePorId(@PathVariable("id") Long id){
+        return animeService.BuscarAnimePorId(id);
     }
 
     private ListaAnimeDTO toListaAnimeDTO(Anime anime){

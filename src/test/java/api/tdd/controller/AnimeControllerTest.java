@@ -2,10 +2,12 @@ package api.tdd.controller;
 
 import api.tdd.controllers.AnimeController;
 import api.tdd.models.Anime;
+import api.tdd.repositories.AnimeRepository;
 import api.tdd.services.AnimeService;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,31 +36,34 @@ public class AnimeControllerTest {
         RestAssuredMockMvc.standaloneSetup(this.animeController);
     }
 
+//    @Test
+//    public void deveRetornarSucesso_QuandoBuscarAnime() {
+//
+//        when(this.animeService.findAnime(1L)).thenReturn(new Anime(1L, "Mirai Nikki", "Sem Descrição"));
+//
+//        RestAssuredMockMvc.given().accept(ContentType.JSON)
+//                .when().get("/animes/{id}", 1L) //quando chegar uma requisição get no /filmes
+//                .then().statusCode(HttpStatus.OK.value()); //então status 200
+//    }
+//
+//    @Test
+//    public void deveRetornarNaoEncontrado_QuandoBuscarAnime() {
+//
+//        when(this.animeService.findAnime(5L)).thenReturn(null);
+//
+//        RestAssuredMockMvc.given().accept(ContentType.JSON).when().get("/animes/{id}", 5L).then().statusCode(HttpStatus.NOT_FOUND.value());
+//    }
+//
+//    @Test
+//    public void deveRetornarBadRequest_QuandoBuscarAnime() {
+//
+//        RestAssuredMockMvc.given().accept(ContentType.JSON).when().get("/animes/{id}", -1L).then().statusCode(HttpStatus.BAD_REQUEST.value());
+//
+//        verify(this.animeService, never()).findAnime(-1L);
+//    }
+
     @Test
-    public void deveRetornarSucesso_QuandoBuscarAnime() {
+    public void deveRetornarSucesso_AoSalvarAnime() {
 
-        when(this.animeService.findAnime(1L)).thenReturn(new Anime(1L, "Mirai Nikki", "Sem Descrição"));
-
-        RestAssuredMockMvc.given().accept(ContentType.JSON)
-                .when().get("/animes/{id}", 1L) //quando chegar uma requisição get no /filmes
-                .then().statusCode(HttpStatus.OK.value()); //então status 200
     }
-
-    @Test
-    public void deveRetornarNaoEncontrado_QuandoBuscarAnime() {
-
-        when(this.animeService.findAnime(5L)).thenReturn(null);
-
-        RestAssuredMockMvc.given().accept(ContentType.JSON).when().get("/animes/{id}", 5L).then().statusCode(HttpStatus.NOT_FOUND.value());
-    }
-
-    @Test
-    public void deveRetornarBadRequest_QuandoBuscarAnime() {
-
-        RestAssuredMockMvc.given().accept(ContentType.JSON).when().get("/animes/{id}", -1L).then().statusCode(HttpStatus.BAD_REQUEST.value());
-
-        verify(this.animeService, never()).findAnime(-1L);
-    }
-
-
 }
