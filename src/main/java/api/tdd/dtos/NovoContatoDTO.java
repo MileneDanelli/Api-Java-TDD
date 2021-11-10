@@ -3,6 +3,9 @@ package api.tdd.dtos;
 import api.tdd.models.Contato;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Email;
+
 @Data
 public class NovoContatoDTO {
     private String nome;

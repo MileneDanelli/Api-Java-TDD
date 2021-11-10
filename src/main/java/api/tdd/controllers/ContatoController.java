@@ -33,13 +33,13 @@ public class ContatoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Contato cadastrar(@Valid @RequestBody NovoContatoDTO animeDTO){
+    public Contato cadastrar(@Valid NovoContatoDTO animeDTO){
         return contatoService.CadastrarContato(animeDTO.converteModelo());
     }
 
     @PutMapping(path = "{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Contato editar(@Valid @RequestBody Contato contato, @PathVariable("id") Long id){
+    public Contato editar(@Valid Contato contato, @PathVariable("id") Long id){
         return contatoService.EditarContato(id, contato);
     }
 

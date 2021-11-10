@@ -1,5 +1,6 @@
 package api.tdd.services;
 
+import api.tdd.Excessoes.ExcessaoJaExistente;
 import api.tdd.models.Contato;
 import api.tdd.repositories.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ContatoService {
 
     public Contato BuscarContatoPorId(Long id) {
         return contatoRepository.findById(id).orElseThrow(
-                () -> new IllegalStateException("Produto não Existe. id: " + id)
+                () -> new IllegalStateException("Contato não Existe. id: " + id)
         );
     }
 
@@ -30,7 +31,7 @@ public class ContatoService {
     }
 
     public Contato CadastrarContato(Contato contato) {
-        validacaoNome(contato.getNome());
+        validacaoEmail(contato.getEmail());
         return contatoRepository.save(contato);
     }
 
@@ -61,10 +62,10 @@ public class ContatoService {
         return contato;
     }
 
-    public void validacaoNome(String nome){
-        Optional<Contato> ContatoPorNome = contatoRepository.findTipoProdutoByNome(nome);
-        if(ContatoPorNome.isPresent()){
-            throw new IllegalStateException("Contato Já Existente");
+    public void validacaoEmail(String email){
+        var contato = contatoRepository.findContatoByEmail(email);
+        if(contato.isPresent()){
+            throw new ExcessaoJaExistente("Cadastre um Email diferente!");
         }
     }
 }

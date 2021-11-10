@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +20,8 @@ public class Contato {
 
     private String nome;
 
+    @Email(message = "Email Inválido")
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String telefone;
