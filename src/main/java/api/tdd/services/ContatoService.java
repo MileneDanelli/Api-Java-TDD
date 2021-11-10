@@ -16,6 +16,13 @@ public class ContatoService {
     @Autowired
     private final ContatoRepository contatoRepository;
 
+    public void validacaoEmail(String email){
+        var contato = contatoRepository.findContatoByEmail(email);
+        if(contato.isPresent()){
+            throw new ExcessaoJaExistente("Cadastre um Email diferente!");
+        }
+    }
+
     public ContatoService(ContatoRepository contatoRepository) {
         this.contatoRepository = contatoRepository;
     }
@@ -60,12 +67,5 @@ public class ContatoService {
             contato.setTelefone(contato1.getTelefone());
         }
         return contato;
-    }
-
-    public void validacaoEmail(String email){
-        var contato = contatoRepository.findContatoByEmail(email);
-        if(contato.isPresent()){
-            throw new ExcessaoJaExistente("Cadastre um Email diferente!");
-        }
     }
 }
