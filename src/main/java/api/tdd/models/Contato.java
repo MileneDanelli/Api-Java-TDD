@@ -15,12 +15,14 @@ import javax.persistence.Id;
 @Data
 @Builder
 @Entity
-public class Anime {
+public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
 
-    private String descricao;
+    private String email;
+
+    private String telefone;
 }

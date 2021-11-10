@@ -1,8 +1,8 @@
 package api.tdd.controller;
 
-import api.tdd.controllers.AnimeController;
-import api.tdd.models.Anime;
-import api.tdd.services.AnimeService;
+import api.tdd.controllers.ContatoController;
+import api.tdd.models.Contato;
+import api.tdd.services.ContatoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @AutoConfigureMockMvc
-public class AnimeControllerTest {
+public class ContatoControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -32,55 +32,25 @@ public class AnimeControllerTest {
 
     //No teste de Controller eu só tenho que testar o controller, por isso uso o mock nos outros(repositorio e service)
     @Autowired
-    private AnimeController animeController;
+    private ContatoController contatoController;
 
     @MockBean //ele cria uma implementacao falsa, porque nao pode ser o real para não interferir no teste.
-    private AnimeService animeService;
+    private ContatoService contatoService;
 
     @MockBean
     private ModelMapper modelMapper;
 
     @BeforeEach
     public void setup(){
-        RestAssuredMockMvc.standaloneSetup(this.animeController);
+        RestAssuredMockMvc.standaloneSetup(this.contatoController);
     }
 
     @Test
     public void deveRetornarSucesso_QuandoBuscarAnime() {
-        when(this.animeService.BuscarAnimePorId(1L)).thenReturn(new Anime(1L, "Mirai Nikki", "Sem Descrição"));
+        when(this.contatoService.BuscarContatoPorId(1L)).thenReturn(new Contato(1L, "Mi", "mi@outlook.com", "45999289744"));
 
         RestAssuredMockMvc.given().accept(ContentType.JSON)
-                .when().get("/animes/{id}", 1L) //quando chegar uma requisição get no /filmes
+                .when().get("/contatos/{id}", 1L) //quando chegar uma requisição get no /filmes
                 .then().statusCode(HttpStatus.OK.value()); //então status 200
-    }
-
-    @Test
-    public void deveRetornarSucesso_AoSalvarAnime() throws Exception {
-        Anime anime = new Anime(1L, "teste", "teste");
-
-        mockMvc.perform(post("/animes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(anime))
-        ).andExpect(status().isCreated());
-    }
-
-    @Test
-    public void deveRetornarSucesso_AoEditarAnime() throws Exception {
-        Anime anime = new Anime(1L, "teste", "teste");
-
-        mockMvc.perform(put("/animes/" + anime.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(anime))
-        ).andExpect(status().isOk());
-    }
-
-    @Test
-    public void deveRetornarSucesso_AoDeletarAnime() throws Exception {
-        Anime anime = new Anime(1L, "teste", "teste");
-
-        mockMvc.perform(delete("/animes/" + anime.getId())
-        ).andExpect(status().isOk());
     }
 }

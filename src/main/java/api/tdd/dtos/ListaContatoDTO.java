@@ -4,8 +4,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ListaAnimeDTO implements Serializable {
+public class ListaContatoDTO implements Serializable {
     private Long id;
     private String nome;
-    private String descricao;
+    private String email;
+    private String telefone;
 }
