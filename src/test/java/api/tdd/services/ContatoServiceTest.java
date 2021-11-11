@@ -1,23 +1,20 @@
-package api.tdd.service;
+package api.tdd.services;
 
 import api.tdd.Excessoes.ExcessaoJaExistente;
 import api.tdd.models.Contato;
 import api.tdd.repositories.ContatoRepository;
-import api.tdd.services.ContatoService;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 
-@ExtendWith(SpringExtension.class)
-public class ContatoServiceTest {
-
+@ExtendWith(MockitoExtension.class)
+class ContatoServiceTest {
     @Mock
     private ContatoRepository contatoRepository;
 
@@ -25,7 +22,7 @@ public class ContatoServiceTest {
     private ContatoService contatoService;
 
     @Test
-    public void deveRetornarSucesso_QuandoCadastrarContato() {
+    void deveRetornarSucesso_QuandoCadastrarContato() {
         Contato contato = Contato.builder()
                 .id(1L)
                 .nome("mi")
@@ -44,7 +41,7 @@ public class ContatoServiceTest {
     }
 
     @Test
-    public void retornaExcessaoSeEmailJaExiste() {
+    void retornaExcessaoSeEmailJaExiste() {
         Contato contato = Contato.builder()
                 .id(1L)
                 .nome("mi")
