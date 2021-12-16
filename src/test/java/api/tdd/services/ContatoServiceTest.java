@@ -1,8 +1,8 @@
 package api.tdd.services;
 
 import api.tdd.Excessoes.ExcessaoJaExistente;
-import api.tdd.models.Contato;
-import api.tdd.repositories.ContatoRepository;
+import api.tdd.models.Produto;
+import api.tdd.repositories.ProdutoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,47 +10,51 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.math.BigDecimal;
 import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class ContatoServiceTest {
     @Mock
-    private ContatoRepository contatoRepository;
+    private ProdutoRepository produtoRepository;
 
     @InjectMocks
-    private ContatoService contatoService;
+    private ProdutoService produtoService;
 
     @Test
     void deveRetornarSucesso_QuandoCadastrarContato() {
-        Contato contato = Contato.builder()
+        Produto produto = Produto.builder()
                 .id(1L)
                 .nome("mi")
-                .email("mi@gmail.com")
-                .telefone("712371237")
+                .qtd(1)
+                .compra(BigDecimal.valueOf(199))
+                .venda(BigDecimal.valueOf(189))
                 .build();
 
-        Mockito.doReturn(contato).when(contatoRepository).save(any(Contato.class));
+        Mockito.doReturn(produto).when(produtoRepository).save(any(Produto.class));
 
-        var result = contatoService.CadastrarContato(contato);
+        var result = produtoService.CadastrarProduto(produto);
 
         Assertions.assertThat(result)
                 .isNotNull();
-        Assertions.assertThat(result.getEmail())
-                .isEqualTo(contato.getEmail());
+        Assertions.assertThat(result.getNome())
+                .isEqualTo(produto.getNome());
     }
 
     @Test
     void retornaExcessaoSeEmailJaExiste() {
-        Contato contato = Contato.builder()
+        Produto produto = Produto.builder()
                 .id(1L)
                 .nome("mi")
-                .email("mi@gmail.com")
-                .telefone("712371237")
+                .qtd(1)
+                .compra(BigDecimal.valueOf(199))
+                .venda(BigDecimal.valueOf(189))
                 .build();
 
-        Mockito.when(contatoRepository.findContatoByEmail(any())).thenReturn(Optional.of(contato));
+        Mockito.when(produtoRepository.findProdutoByNome(any())).thenReturn(Optional.of(produto));
 
-        Assertions.assertThatThrownBy(() -> contatoService.validacaoEmail("mi@gmail.com")).isInstanceOf(ExcessaoJaExistente.class);
+        Assertions.assertThatThrownBy(() -> produtoService.validacaoNome("mi")).isInstanceOf(ExcessaoJaExistente.class);
     }
 }
