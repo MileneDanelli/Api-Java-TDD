@@ -33,13 +33,13 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto cadastrar(@Valid NovoProdutoDTO produtoDTO){
+    public Produto cadastrar(@Valid @RequestBody NovoProdutoDTO produtoDTO){
         return produtoService.CadastrarProduto(produtoDTO.converteModelo());
     }
 
     @PutMapping(path = "{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Produto editar(@Valid Produto produto, @PathVariable("id") Long id){
+    public Produto editar(@Valid @RequestBody Produto produto, @PathVariable("id") Long id){
         return produtoService.EditarProduto(id, produto);
     }
 

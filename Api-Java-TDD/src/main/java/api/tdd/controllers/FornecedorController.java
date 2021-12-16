@@ -33,7 +33,7 @@ public class FornecedorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Fornecedor cadastrar(@Valid NovoFornecedorDTO fornecedorDTO){
+    public Fornecedor cadastrar(@Valid @RequestBody NovoFornecedorDTO fornecedorDTO){
         return fornecedorService.CadastrarFornecedor(fornecedorDTO.converteModelo());
     }
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-class ContatoServiceTest {
+class ProdutoServiceTest {
     @Mock
     private ProdutoRepository produtoRepository;
 
@@ -24,7 +24,7 @@ class ContatoServiceTest {
     private ProdutoService produtoService;
 
     @Test
-    void deveRetornarSucesso_QuandoCadastrarContato() {
+    void deveRetornarSucesso_QuandoCadastrarProduto() {
         Produto produto = Produto.builder()
                 .id(1L)
                 .nome("mi")
@@ -44,7 +44,7 @@ class ContatoServiceTest {
     }
 
     @Test
-    void retornaExcessaoSeEmailJaExiste() {
+    void retornaExcessaoSeNomeDoProdutoJaExiste() {
         Produto produto = Produto.builder()
                 .id(1L)
                 .nome("mi")

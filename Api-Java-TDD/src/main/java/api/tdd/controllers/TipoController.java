@@ -34,8 +34,8 @@ public class TipoController {
 
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
-        public Tipo cadastrar(@Valid NovoTipoDTO tipoDTO){
-            return tipoService.CadastrarTipo(tipoDTO.converteModelo());
+        public Tipo cadastrar(@Valid @RequestBody NovoTipoDTO novoTipoDTO){
+            return tipoService.CadastrarTipo(novoTipoDTO.converteModelo());
         }
 
         private ListaTipoDTO toListaTipoDTO(Tipo tipo){
