@@ -1,6 +1,8 @@
 package api.tdd.dtos;
 
+import api.tdd.models.Fornecedor;
 import api.tdd.models.Produto;
+import api.tdd.models.Tipo;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -11,13 +13,17 @@ public class NovoProdutoDTO {
     private Integer qtd;
     private BigDecimal compra;
     private BigDecimal venda;
+    private Tipo tipo;
+    private Fornecedor fornecedor;
 
     public Produto converteModelo(){
-        Produto contato = new Produto();
-        contato.setNome(nome);
-        contato.setQtd(qtd);
-        contato.setCompra(compra);
-        contato.setVenda(venda);
-        return contato;
+        Produto produto = new Produto();
+        produto.setNome(nome);
+        produto.setQtd(qtd);
+        produto.setCompra(compra);
+        produto.setVenda(venda);
+        produto.setTipo(tipo);
+        produto.setFornecedor(fornecedor);
+        return produto;
     }
 }

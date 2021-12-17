@@ -6,5 +6,5 @@ import lombok.Data;
 public class ListaFornecedorDTO {
     private Long id;
     private String nome;
-    private Integer telefone;
+    private String telefone;
 }

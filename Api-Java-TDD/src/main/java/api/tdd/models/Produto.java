@@ -25,9 +25,9 @@ public class Produto {
     private BigDecimal compra;
     private BigDecimal venda;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private Fornecedor fornecedor;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private Tipo tipo;
 }
